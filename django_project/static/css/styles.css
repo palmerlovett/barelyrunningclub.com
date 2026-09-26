@@ -158,28 +158,38 @@ header.main {
 		
 		.header-content navigation.main { 
 			width: 100% }
-			.header-content navigation.main ul { 
-				margin: 0; padding: 0;
-				text-transform: uppercase;
-				font-style: italic;
-				font-weight: bold;
-				display: block;
-				list-style-type: none }
-			.header-content navigation.main li {
-				display: block;
-				border-bottom: 1px solid var(--barely-green) }
-			.header-content navigation.main a {
-				display: block;
-				text-decoration: none;
-				color: black;
-				font-size: 22px;
-				text-align: right;
-				padding: 14px 0px }
-				.header-content navigation.main a:hover {
-					color: var(--live-red);
-					cursor: pointer }
+			
+		navigation.main ul { 
+			margin: 0; padding: 0;
+			text-transform: uppercase;
+			font-style: italic;
+			font-weight: bold;
+			display: block;
+			list-style-type: none }
+		navigation.main li {
+			display: block;
+			border-bottom: 1px solid var(--barely-green) }
+		navigation.main a {
+			display: block;
+			text-decoration: none;
+			color: black;
+			font-size: 22px;
+			text-align: right;
+			padding: 14px 0px }
+			navigation.main li:hover { border-bottom: 1px solid var(--live-red) }
+			navigation.main a:hover {
+				cursor: pointer }
 
-.header-content navigation.main a.rsvp { color: red }
+
+navigation.main li.rsvp a {
+	-webkit-text-stroke: 1px black;
+	color: var(--barely-gold) !important }
+
+.content-club navigation.main ul li.content a {
+}
+.content-club navigation.main ul li.content {
+	border-bottom: 1px solid var(--live-red) }
+
 
 main {
 	min-height: 70dvh;
@@ -245,18 +255,23 @@ footer.main .container {
 		margin-bottom: 7px;
     margin-top: -3px;
 		width: 77% }
-		.header-content navigation.main ul { 
-			display: flex;
-			flex-wrap: wrap;
-  		justify-content: flex-end;
-  		gap:0 }
-	 	.header-content navigation.main li {
-			float: none;
-			margin-left: 7px;
-			display: inline-block }
-		.header-content navigation.main a {
-			font-size: 18px;
-			padding: 14px 0 14px 28px }
+	
+	navigation.main ul { 
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		gap:0 }
+ 	navigation.main li {
+		float: none;
+		margin-left: 7px;
+		display: inline-block }
+	navigation.main a {
+		font-size: 18px;
+		padding: 14px 0 14px 28px }
+
+
+
+
 
 	main {}
 
@@ -323,6 +338,9 @@ a.action.right { text-align: right }
 	color: #333;
 	text-align: right }
 	.about p { font-size: 17px }
+	.about p::first-line {
+		font-style: normal;
+		text-transform:uppercase }
 .flyer {
   border: 4px solid var(--forest-green);
   border-radius: 3px;
@@ -332,6 +350,8 @@ a.action.right { text-align: right }
   display: block;
   width: 100%;
   box-sizing: border-box;
+  border-radius: 2px;
+  overflow: hidden;
   border: 1px solid var(--softwhite) }
 
 @media (min-width: 780px) {

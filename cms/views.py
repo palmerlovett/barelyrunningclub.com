@@ -28,24 +28,28 @@ def page(request):
       return redirect(alias.destination.path, permanent=True)
 
   pagetitle = page.name
+  pagetitle_verbose = pagetitle
   pageclass = 'cms '+slugify(page.name)
 
   canon = settings.SITE_URL+page.path
+  print(f'page name {page.name}')
+  if page.name.casefold() == 'index':
+    pagetitle_verbose = ""
+  else:
+    pagetitle_verbose = f'{pagetitle_verbose} at '
+
+  pagetitle_verbose += 'Barely Running Club'
 
   data = {
     "canon": canon,
     "page": page,
     "content": page.content,
     "page_desc": page.desc,
-    "pagetitle": page.name,
-    "pageclass": pageclass
-  }
+    "pagetitle": pagetitle,
+    "pagetitle_verbose": pagetitle_verbose,
+    "pageclass": pageclass }
   
-  print(f'\n\n\nextra extra content: {page.source}\n\n')
-
   html = pre_render(page.source, data, request)
   # page.content until we solve the rendering issue 
-
-  print(f'\n\n\nextra extra html: {html}\n\n')
   
   return HttpResponse(html)

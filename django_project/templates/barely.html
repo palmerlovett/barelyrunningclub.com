@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<title>{{ pagetitle|add:" at " }} Barely Running Club</title>
+		<title>{{ pagetitle_verbose }}</title>
 
 		<meta name="description" content="Join Barely Running Club for fun, social runs, walking groups, and community meetups. All paces welcome—come move, connect, and enjoy the run together.">
 
@@ -28,7 +28,7 @@
 		<!-- Add twitter:title, twitter:description, twitter:image, or twitter:image:alt only when you want X-specific values or an explicit override. -->
 
 	</head>
-	<body>
+	<body class="{{ pageclass }}">
 		<header class="main">
 			<div class="barely-long">
 				<div class="container">
@@ -55,11 +55,11 @@
 							<li class="shop">
 								<a href="/shop/">Shop Barely</a>
 							</li>
-							<li class="rsvp">
-								<a href="/rsvp/" class="golden">➡ RSVP 4 Swag</a>
-							</li>
 							<li class="content">
 								<a href="/content/">Content Club</a>
+							</li>
+							<li class="rsvp">
+								<a href="/rsvp/">➡ RSVP 4 Swag</a>
 							</li>
 						</ul>
 					</navigation>
