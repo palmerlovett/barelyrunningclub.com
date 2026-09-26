@@ -47,7 +47,8 @@ INSTALLED_APPS = [
 
   'django_project',
   'cms',
-]
+  'upcoming',
+  'media', ]
 
 MIDDLEWARE = [
   'django.middleware.security.SecurityMiddleware',
@@ -56,8 +57,7 @@ MIDDLEWARE = [
   'django.middleware.csrf.CsrfViewMiddleware',
   'django.contrib.auth.middleware.AuthenticationMiddleware',
   'django.contrib.messages.middleware.MessageMiddleware',
-  'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+  'django.middleware.clickjacking.XFrameOptionsMiddleware', ]
 
 ROOT_URLCONF = 'django_project.urls'
 
@@ -137,6 +137,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 #STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = "/var/www/barelyrunningclub.com/static/"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/var/www/barelyrunningclub.com/media/'
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration

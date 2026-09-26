@@ -10,13 +10,14 @@
 
 body, html {
 	margin: 0;
+	background: var(--barely-gold);
+	border-top: 3px solid var(--barely-gold);
+	border-bottom: 4px solid var(--barely-gold);
 	padding: 0 }
 
 body {
-	background: var(--barely-gold);
-	font-family: "Tofino";
-	border-top: 3px solid var(--barely-gold);
-	border-bottom: 4px solid var(--barely-gold) }
+	background-color: var(--barely-green);
+	font-family: "Tofino" }
 
 .container {
 	width: 100%;

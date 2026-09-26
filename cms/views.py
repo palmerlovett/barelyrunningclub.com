@@ -19,10 +19,11 @@ def page(request):
     try:
       page = Page.objects.get(path=request.path, public=True)
     except Page.DoesNotExist:
+      print(f'page does not exist, trying alias...')
       try:
         alias = Alias.objects.select_related("destination").get(path=request.path)
       except Alias.DoesNotExist:
-        print(f"tried to access nonexistent Page: {request.path}")
+        print(f"tried to access nonexistent Page (and alias): {request.path}")
         raise Http404
       print(f"redirecting to {alias.destination.path}...")
       return redirect(alias.destination.path, permanent=True)
