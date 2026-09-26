@@ -4,6 +4,8 @@
 	--forest-green: rgb(38, 77, 54);
 	--softwhite: #FFFEF8;
 	--barely-gold: rgb(255,193,38);
+
+	--shadow: 0 7px 3px rgba(0, 0, 0, .5);
 }
 
 body, html {
@@ -14,7 +16,16 @@ body {
 	background: var(--barely-gold);
 	font-family: "Tofino";
 	border-top: 3px solid var(--barely-gold);
-}
+	border-bottom: 4px solid var(--barely-gold) }
+
+.container {
+	width: 100%;
+	max-width: 910px;
+	margin: auto;
+	box-sizing: border-box;
+	padding: 14px 21px }
+
+.right { text-align: right }
 
 
 p {
@@ -60,32 +71,50 @@ a.red, .red {
 	-webkit-text-stroke: 1px black;
 	color: var(--live-red) !important }
 
-
-.container {
-	width: 100%;
-	max-width: 910px;
-	margin: auto;
-	box-sizing: border-box;
-	padding: 14px 21px }
-
-main h2 {
-	color: white;
-	text-shadow: 0 0 1px black;
-	font-style: italic;
-	font-size: 28px;
-	margin: 14px 0 7px 0;
+h2, h3, h4 {
+	color: #333;
 	text-transform: uppercase;
+}
+
+.whitebold h2, .whitebold h3, .whitebold h4,
+h2.loose, h3.loose, h4.loose {
+	font-style: italic;
 	letter-spacing: 1px;
-	text-shadow: 0px 6px 3px rgba(0, 0, 0, .8);
-	text-align: right }
+	color: white;
+
+	text-shadow: 0px 6px 3px rgba(0, 0, 0, .8) }
+
+@media (min-width: 780px) {
+	.whitebold h2, .whitebold h3, .whitebold h4,
+	h2.loose, h3.loose, h4.loose {
+		margin: 0 0 7px 0 }
+}
+
+.whitebold h2.border, .whitebold h3.border, .whitebold h4.border,
+h2.loose.border, h3.loose.border, h4.loose.border {
+	border-bottom: 3px solid var(--softwhite);
+	padding-bottom: 14px;
+	box-shadow: -1px 4px 1px rgba(0, 0, 0, .8) }
+
+.loose { margin: -7px 0 3px 0 }
+
+h2 {
+	font-size: 28px }
+h3 { 
+	font-size: 22px }
+h4 { 
+	font-size: 20px }
+
 
 .card {
 	background: var(--softwhite);
 	outline: 1px solid var(--softwhite);
 	border: 5px solid var(--forest-green);
-	box-shadow: 0 7px 3px rgba(0, 0, 0, .5);
-	padding: 14px 35px }
+	border-radius: 3px;
+	box-shadow: var(--shadow);
+	padding: 7px 14px }
 
+.card.large { padding: 14px 35px }
 
 header.main {
 	 }
@@ -156,11 +185,13 @@ main {
 	min-height: 70dvh;
 	background-size: cover;
 	background-image: url('/static/img/runners.png');
+	border-top: 1px solid var(--softwhite);
 	border-bottom: 1px solid var(--softwhite);
 }
 
 footer.main {
 	background: var(--barely-green);
+	border-bottom: 1px solid var(--forest-green);
 	border-top: 7px solid var(--forest-green) }
 
 	footer.main .nickf {}
@@ -195,7 +226,6 @@ footer.main .container {
 
 @media (min-width: 630px) {
 
-
 	.header-content { margin-bottom: 0 }
 
 	.header-content .container {
@@ -228,6 +258,8 @@ footer.main .container {
 			font-size: 18px;
 			padding: 14px 0 14px 28px }
 
+	main {}
+
 	footer.main {  }
 		footer.main h4 {
 			padding-bottom: 3px; 
@@ -246,4 +278,75 @@ footer.main .container {
 @media (min-width: 540px) {
 	.barely-long .container { 
 		background-position: right 14px center }
+}
+
+
+.whitebold {
+	color: var(--softwhite);
+	font-weight: bold }
+
+	.whitebold p {
+		font-style: italic;
+		text-shadow: 0px 6px 3px rgba(0, 0, 0, .8);
+		font-size: 20px }
+
+a.action.button {
+	text-transform: uppercase; 
+	color: white;
+	-webkit-text-stroke: 2px black;
+	border: 2px solid black;
+	outline: 1px solid var(--softwhite);
+	border-radius: 3px;
+	display: block;
+	padding: 7px 21px;
+	font-size: 22px;
+	font-style: italic;
+	box-shadow: var(--shadow);
+	background: var(--barely-gold) }
+	a.action.button:after {
+		position: relative;
+		left: 0;
+		transition: left .2s ease;
+		content: ' ➡ ' }
+	a.action.button:hover:after { 
+		left: 3px }
+
+a.action.right { text-align: right }
+
+
+.intro {
+  display: block }
+
+.about {
+	font-weight: bold;
+	font-style: italic;
+	color: #333;
+	text-align: right }
+	.about p { font-size: 17px }
+.flyer {
+  border: 4px solid var(--forest-green);
+  border-radius: 3px;
+  outline: 1px solid var(--softwhite);
+  box-shadow: var(--shadow) }
+.flyer img {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--softwhite) }
+
+@media (min-width: 780px) {
+  .intro {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start }
+  .intro-copy, .flyer {
+    flex: 0 0 calc((100% - 1rem) / 2);
+    min-width: 0;
+    box-sizing: border-box }
+  .intro-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem }
+  .flyer {
+    order: -1 }
 }

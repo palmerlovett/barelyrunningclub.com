@@ -100,11 +100,14 @@ class Page(models.Model):
     ancestor = self.parent_page
     visited = set()
 
-    wrapped_content  = '{% extends "cms/'+self.template.name+'" %}\n'
-    wrapped_content += "{% block content %}\n"
-    wrapped_content += "{{ block.super }}\n"
-    wrapped_content += self.content
-    wrapped_content += "\n{% endblock %}"
+    if self.template:
+      wrapped_content  = '{% extends "cms/'+self.template.name+'" %}\n'
+      wrapped_content += "{% block content %}\n"
+      wrapped_content += "{{ block.super }}\n"
+      wrapped_content += self.content
+      wrapped_content += "\n{% endblock %}"
+    else:
+      wrapped_content = self.content
 
     while ancestor:
       if ancestor.pk in visited:
