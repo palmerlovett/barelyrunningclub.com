@@ -1,0 +1,249 @@
+:root {
+	--barely-green: rgb(197, 219, 197);
+	--live-red: darkred;
+	--forest-green: rgb(38, 77, 54);
+	--softwhite: #FFFEF8;
+	--barely-gold: rgb(255,193,38);
+}
+
+body, html {
+	margin: 0;
+	padding: 0 }
+
+body {
+	background: var(--barely-gold);
+	font-family: "Tofino";
+	border-top: 3px solid var(--barely-gold);
+}
+
+
+p {
+	font-size: 16px;
+	line-height: 1.6;
+	padding: 0;
+	margin: 14px 0 }
+	p:first-child { margin-top: 0 }
+	p:last-child { margin-bottom: 0 }
+
+a {
+	color: #333;
+	text-decoration: none }
+	a:hover { color: var(--live-red) }
+
+
+h4 {
+	text-transform: uppercase;
+	font-size: 16px;
+	margin: 7px 0 0 0;
+}
+
+
+ul.neatlinks {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+ul.neatlinks a {
+	text-decoration: none;
+	color: #444;
+	display: block;
+	padding: 7px 0 0 0;
+	font-weight: bold }
+	ul.neatlinks a:hover { color: var(--live-red) }
+
+a.golden, .golden {
+	-webkit-text-stroke: 1px black;
+	color: var(--barely-gold) !important }
+	a.golden:hover, .golden:hover { -webkit-text-stroke: 2px var(--live-red) }
+
+a.red, .red {
+	-webkit-text-stroke: 1px black;
+	color: var(--live-red) !important }
+
+
+.container {
+	width: 100%;
+	max-width: 910px;
+	margin: auto;
+	box-sizing: border-box;
+	padding: 14px 21px }
+
+main h2 {
+	color: white;
+	text-shadow: 0 0 1px black;
+	font-style: italic;
+	font-size: 28px;
+	margin: 14px 0 7px 0;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	text-shadow: 0px 6px 3px rgba(0, 0, 0, .8);
+	text-align: right }
+
+.card {
+	background: var(--softwhite);
+	outline: 1px solid var(--softwhite);
+	border: 5px solid var(--forest-green);
+	box-shadow: 0 7px 3px rgba(0, 0, 0, .5);
+	padding: 14px 35px }
+
+
+header.main {
+	 }
+
+
+.barely-long {
+	background: var(--barely-green);
+	border-top: 1px solid var(--forest-green);
+	border-bottom: 3px solid var(--forest-green) }
+	
+.barely-long .container { 
+	width: 100%;
+	aspect-ratio: 11 / 1;
+	max-height: 50px;
+	background-color: --var(barely-green);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: min(calc(100% - 28px), 500px) auto;
+	background-image: url('/static/img/barely_logo_long.png') }
+	.barely-long h1 {
+		margin: 0;
+		padding: 0;
+		visibility:hidden }
+
+.header-content {
+	border-bottom: 4px solid var(--forest-green);
+	background: var(--softwhite) }
+
+	.header-content .container {
+		padding-top: 0; padding-bottom: 0;
+		position: relative }
+
+		.header-content .logo {
+			display: block;
+  		position: absolute;
+  		margin-top: 21px;
+			width: 198px }
+			.header-content .logo img {
+				filter: drop-shadow(6px 8px 8px rgb(0 0 0 / 0.3));
+				width: 100% }
+		
+		.header-content navigation.main { 
+			width: 100% }
+			.header-content navigation.main ul { 
+				margin: 0; padding: 0;
+				text-transform: uppercase;
+				font-style: italic;
+				font-weight: bold;
+				display: block;
+				list-style-type: none }
+			.header-content navigation.main li {
+				display: block;
+				border-bottom: 1px solid var(--barely-green) }
+			.header-content navigation.main a {
+				display: block;
+				text-decoration: none;
+				color: black;
+				font-size: 22px;
+				text-align: right;
+				padding: 14px 0px }
+				.header-content navigation.main a:hover {
+					color: var(--live-red);
+					cursor: pointer }
+
+.header-content navigation.main a.rsvp { color: red }
+
+main {
+	min-height: 70dvh;
+	background-size: cover;
+	background-image: url('/static/img/runners.png');
+	border-bottom: 1px solid var(--softwhite);
+}
+
+footer.main {
+	background: var(--barely-green);
+	border-top: 7px solid var(--forest-green) }
+
+	footer.main .nickf {}
+		footer.main .nickf a { 
+			width: 95%;
+			max-width: 200px;
+			margin: auto;
+			aspect-ratio: 17 / 10;
+			background-size: cover;
+			background-image: url('/static/img/nf-logo.png');
+			display: block;
+			color: rgba(255, 255, 255, 0.0) }
+
+footer.main .container {
+	display: flex;
+	flex-wrap: wrap;
+  justify-content: flex-end }
+
+	footer.main .nickf {
+		border-bottom: 3px solid var(--forest-green);
+		width: 100%	}
+
+	footer.main .sponsors, footer.main .info {
+		width: 100%;
+		margin-top: 14px;
+		text-align: center }
+
+@media (min-width: 490px) {
+	footer.main .sponsors, footer.main .info {
+		width: 50% }
+}
+
+@media (min-width: 630px) {
+
+
+	.header-content { margin-bottom: 0 }
+
+	.header-content .container {
+		display: flex }
+	
+	.header-content .logo {
+		width: 20%;
+		position: static }
+		.header-content .logo img {
+			max-width: 168px;
+			margin-top: -70px;
+			margin-bottom: -70px;
+			width: 120% }
+	
+	.header-content navigation.main {
+		margin-left: auto;
+		margin-bottom: 7px;
+    margin-top: -3px;
+		width: 77% }
+		.header-content navigation.main ul { 
+			display: flex;
+			flex-wrap: wrap;
+  		justify-content: flex-end;
+  		gap:0 }
+	 	.header-content navigation.main li {
+			float: none;
+			margin-left: 7px;
+			display: inline-block }
+		.header-content navigation.main a {
+			font-size: 18px;
+			padding: 14px 0 14px 28px }
+
+	footer.main {  }
+		footer.main h4 {
+			padding-bottom: 3px; 
+			margin-top: 0 }
+		footer.main .nickf, footer.main .sponsors, footer.main .info {
+			text-align: left;
+			width: 33% }
+		footer.main .sponsors, footer.main .info { margin: 7px 0 }
+		footer.main .sponsors {}
+		footer.main .nickf { border-bottom: 0 }
+			footer.main .nickf a {
+				margin-left: 0;
+				width: 170px }
+}
+
+@media (min-width: 540px) {
+	.barely-long .container { 
+		background-position: right 14px center }
+}

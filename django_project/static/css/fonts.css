@@ -1,0 +1,30 @@
+@font-face {
+  font-family: "Tofino";
+  src: url("/static/fonts/tofino-book.woff2") format("woff2"),
+       url("/static/fonts/tofino-book.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Tofino";
+  src: url("/static/fonts/tofino-bookitalic.woff2") format("woff2"),
+       url("/static/fonts/tofino-bookitalic.woff") format("woff");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Tofino";
+  src: url("/static/fonts/tofino-medium.woff2") format("woff2"),
+       url("/static/fonts/tofino-medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap}
+@font-face {
+  font-family: "Tofino";
+  src: url("/static/fonts/tofino-mediumitalic.woff2") format("woff2"),
+       url("/static/fonts/tofino-mediumitalic.woff") format("woff");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap }

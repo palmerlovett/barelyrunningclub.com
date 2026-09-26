@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Barely Running Club (coded)</title>
+
+		<meta name="description" content="Join Barely Running Club for fun, social runs, walking groups, and community meetups. All paces welcome—come move, connect, and enjoy the run together.">
+
+		<meta name="viewport" content="width=device-width">
+		<link href="/static/css/styles.css" rel="stylesheet" type="text/css">
+
+		<link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon.png' %}">
+
+
+		<meta name="description" content="A concise summary specific to this page.">
+		<!-- tells search engines which URL you prefer as the main version when the same or very similar page is reachable at multiple URLs. For example, a page with tracking parameters can declare its clean URL as canonical -->
+		<link rel="canonical" href="{{ canon }}">
+		
+		<meta property="og:url" content="{{ canon }}">
+		<meta property="og:type" content="website">
+		<meta property="og:title" content="{{ pagetitle }}">
+		<meta property="og:description" content="{{ page_desc }}">
+		<meta property="og:image" content="https://barelyrunningclub.com/assets/pageshare/barely_running_og.png">
+		<meta property="og:image:alt" content="A description of what the share image shows.">
+		<meta property="og:image:width" content="1200">
+		<meta property="og:image:height" content="630">
+		<meta property="og:site_name" content="Site name">
+		<meta name="twitter:card" content="summary_large_image">
+		<!-- Add twitter:title, twitter:description, twitter:image, or twitter:image:alt only when you want X-specific values or an explicit override. -->
+
+	</head>
+	<body>
+		<header class="main">
+			<div class="barely-long">
+				<div class="container">
+					<a href="{{ SETTING.SITE_URL }}">
+						<h1>Barely Running Club</h1>
+					</a>
+				</div>
+			</div>
+			<div class="header-content">
+				<div class="container">
+					<div class="logo">
+						<a href="{{ SETTINGS.SITE_URL }}">
+							<img src="/static/img/barely_logo.png">
+						</a>
+					</div>
+					<navigation class="main">
+						<ul>
+							<li class="meetups">
+								<a href="/meetups/">Weekly Meetups</a>
+							</li>
+							<li class="events">
+								<a href="/events/">Upcoming Events</a>
+							</li>
+							<li class="shop">
+								<a href="/shop/">Shop Barely</a>
+							</li>
+							<li class="rsvp">
+								<a href="/rsvp/" class="golden">➡ RSVP 4 Swag</a>
+							</li>
+							<li class="content">
+								<a href="/content/">Content Club</a>
+							</li>
+						</ul>
+					</navigation>
+				</div>
+			</div>
+		</header>
+		<main>
+			<div class="container">
+				{% block content %}
+				{% endblock %}
+			</div>
+		</main>
+		<footer class="main">
+			<div class="container">
+				<div class="nickf">
+					<a href="https://nickfawley.com">Nick Fawley</a>
+				</div>
+				<div class="sponsors">
+					<h4>Sponsors</h4>
+					<ul class="neatlinks">
+						<li><a href="/sponsors/biolyte/">Biolyte</a></li>
+						<li><a href="/sponsors/murphys/">Murphy's</a></li>
+					</ul>
+				</div>
+				<div class="info">
+					<h4>Info</h4>
+					<ul class="neatlinks">
+						<li><a href="mailto:info@barelyrunningclub.com">info@barelyrunningclub.com</a></li>
+						<li><a href="/rsvp/" title="about the only thing to do to become a member">BRC RSVP</a></li>
+					</ul>
+				</div>
+			</div>
+		</footer>
+	</body>
+</html>
