@@ -10,10 +10,15 @@
 
 body, html {
 	margin: 0;
-	background: var(--barely-gold);
-	border-top: 3px solid var(--barely-gold);
-	border-bottom: 4px solid var(--barely-gold);
 	padding: 0 }
+
+html {
+	background: var(--barely-gold);
+
+  border-top: 2px solid var(--barely-gold);
+  z-index: 0;
+	border-bottom: 1px solid var(--forest-green) }
+
 
 body {
 	background-color: var(--barely-green);

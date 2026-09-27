@@ -54,4 +54,4 @@ class PartAdminForm(forms.ModelForm):
 class PartAdmin(admin.ModelAdmin):
   form = PartAdminForm
   list_display = ("name",)
-  search_field = ("name", "html",)
+  search_fields = ("name", "html",)

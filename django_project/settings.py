@@ -48,7 +48,8 @@ INSTALLED_APPS = [
   'django_project',
   'cms',
   'upcoming',
-  'media', ]
+  'media', 
+]
 
 MIDDLEWARE = [
   'django.middleware.security.SecurityMiddleware',
