@@ -18,13 +18,6 @@ class Template(models.Model):
     null=True, blank=True)
 
   def save(self, *args, **kwargs):
-    wrapped_content = self.content
-    if self.parent_template:
-      wrapped_content  = '{% extends "cms/'+self.parent_template.name+'" %}\n'
-      wrapped_content += "{% block content %}\n"
-      wrapped_content += "{{ block.super }}\n"
-      wrapped_content += self.content
-      wrapped_content += "\n{% endblock %}"
 
     names = [self.name]
     paths = [slugify(self.name)]
@@ -40,13 +33,23 @@ class Template(models.Model):
       paths.insert(0, slugify(ancestor.name))
       ancestor = ancestor.parent_template
 
-    self.source = wrapped_content
-    self.path = "/".join(paths)
+
+    path = "/".join(paths)
     self.display_name = " / ".join(names)
+    print(f'path {path}')
 
-
-  
+    wrapped_content = self.content
+    if self.parent_template:
+      wrapped_content  = '{% extends "cms/'+self.parent_template.path+'" %}\n'
+      wrapped_content += "{% block content %}\n"
+      wrapped_content += "{{ block.super }}\n"
+      wrapped_content += self.content
+      wrapped_content += "\n{% endblock %}"
+    
     self.source = wrapped_content
+    self.path = path
+
+    print(f'path: {self.path}')
 
     super().save(*args, **kwargs)
 
@@ -108,7 +111,7 @@ class Page(models.Model):
     visited = set()
 
     if self.template:
-      wrapped_content  = '{% extends "cms/'+self.template.name+'" %}\n'
+      wrapped_content  = '{% extends "cms/'+self.template.path+'" %}\n'
       wrapped_content += "{% block content %}\n"
       wrapped_content += "{{ block.super }}\n"
       wrapped_content += self.content
@@ -127,7 +130,7 @@ class Page(models.Model):
 
     self.source = wrapped_content
     self.display_name = " / ".join(names)
-    self.path = f"/{"/".join(slugs)}/"
+    self.path = f'{"/".join(slugs)}'
     self.path = '/' if self.path == '//' else self.path
     print(f'path:: {self.path}')
 
@@ -163,3 +166,35 @@ class Alias(models.Model):
   class Meta:
     verbose_name = "Alias"
     verbose_name_plural = "Alia"
+
+class App(models.Model):
+  app_id = models.AutoField(primary_key=True)
+  name = models.CharField(max_length=100)
+  path = models.CharField(max_length=255, editable=False)
+  source = models.TextField(default="", blank=True)
+
+  template = models.ForeignKey(Template,
+    null=True, blank=True,
+    on_delete=models.SET_NULL)
+
+  def save(self, *args, **kwargs):
+    path = (self.path or "").strip("/")
+    self.path = path
+
+
+    wrapped_content = ""
+    if self.template:
+      wrapped_content  = '{% extends "cms/'+self.template.path+'" %}\n'
+      wrapped_content += "{% block content %}\n"
+      wrapped_content += "{{ block.super }}\n"
+      wrapped_content += self.source
+      wrapped_content += "\n{% endblock %}"
+    else: print(f'no template')
+
+    self.source = wrapped_content
+
+    print(f'self source: {self.source}')
+    super().save(*args, **kwargs)
+
+  def __str__(self):
+    return self.name

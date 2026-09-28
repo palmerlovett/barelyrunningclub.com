@@ -16,14 +16,15 @@ def page(request):
     except Page.DoesNotExist:
       raise Http404("Home page is not configured or not public")
   else:
+    path = request.path.strip('/')
     try:
-      page = Page.objects.get(path=request.path, public=True)
+      page = Page.objects.get(path=path, public=True)
     except Page.DoesNotExist:
       print(f'page does not exist, trying alias...')
       try:
-        alias = Alias.objects.select_related("destination").get(path=request.path)
+        alias = Alias.objects.select_related("destination").get(path=path)
       except Alias.DoesNotExist:
-        print(f"tried to access nonexistent Page (and alias): {request.path}")
+        print(f"tried to access nonexistent Page (and alias): {path}")
         raise Http404
       print(f"redirecting to {alias.destination.path}...")
       return redirect(alias.destination.path, permanent=True)

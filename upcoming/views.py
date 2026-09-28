@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Meetup
+from django_project import settings
 
 # Create your views here.
 def meetups(request):
@@ -9,6 +10,7 @@ def meetups(request):
 
 	meetup = this_week
 	data = {
+		"pagetitle_verbose": "Weekly Meetups at "+settings.CO_NAME,
 		"gmap_query": meetup.location.gmap_query,
 		"meetup": meetup }
 

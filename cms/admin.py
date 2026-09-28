@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Alias, Template, Part, Page
+from .models import Alias, Template, Part, Page, App
 from django_ace import AceWidget
 from django import forms
 from django.conf import settings
@@ -55,3 +55,16 @@ class PartAdmin(admin.ModelAdmin):
   form = PartAdminForm
   list_display = ("name",)
   search_fields = ("name", "html",)
+
+class AppAdminForm(forms.ModelForm):
+  class Meta:
+    model = App
+    fields = '__all__'
+    widgets = {
+      'source': AceWidget(**settings.ACE_EDITOR_OPTIONS) }
+
+@admin.register(App)
+class AppAdmin(admin.ModelAdmin):
+  form = AppAdminForm
+  list_display = ("name", "path",)
+  search_field = ("name", "content",)

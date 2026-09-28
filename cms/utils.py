@@ -1,25 +1,36 @@
 from django.apps import apps
 from django.template import Origin, engines
 from django.template.loaders.base import Loader
+from django.template import TemplateDoesNotExist
+
 
 class DatabaseLoader(Loader):
-  prefix = "cms/"
+  prefixes = ("cms/", "app/")
+  
   def get_template_sources(self, template_name):
-    if template_name.startswith(self.prefix):
+    if template_name.startswith(self.prefixes):
       yield Origin(
         name=template_name,
         template_name=template_name,
         loader=self,)
-
+  
   def get_contents(self, origin):
+    template_name = origin.template_name
+    prefix = next(
+      (p for p in self.prefixes if template_name.startswith(p)),
+      None,)
+    if prefix is None:
+      raise TemplateDoesNotExist(template_name)
+    path = template_name.removeprefix(prefix)
+
     TemplateModel = apps.get_model("cms", "Template")
-    path = origin.template_name.removeprefix(self.prefix)
+    print(f'path {path}')
+
+    Model = apps.get_model("cms", "Page" if prefix == "app/" else "Template")
     try:
-      stored_template = TemplateModel.objects.get(path=path)
-    except TemplateModel.DoesNotExist:
-      raise TemplateDoesNotExist(origin.template_name)
-    
-    return stored_template.source
+      return Model.objects.get(path=path).source
+    except Model.DoesNotExist:
+      raise TemplateDoesNotExist(template_name)
 
 def pre_render(template_string, context_dict=None, request=None):
   template = engines["django"].from_string(template_string)
