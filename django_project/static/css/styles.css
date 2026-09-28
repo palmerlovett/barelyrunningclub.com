@@ -19,7 +19,6 @@ html {
   z-index: 0;
 	border-bottom: 1px solid var(--forest-green) }
 
-
 body {
 	background-color: var(--barely-green);
 	font-family: "Tofino" }
@@ -39,8 +38,6 @@ p {
 	line-height: 1.6;
 	padding: 0;
 	margin: 14px 0 }
-	p:first-child { margin-top: 0 }
-	p:last-child { margin-bottom: 0 }
 
 a {
 	color: #333;
@@ -80,7 +77,12 @@ a.red, .red {
 h2, h3, h4 {
 	color: #333;
 	text-transform: uppercase;
+	font-style: italic;
+	margin: 7px 0 14px 0;
 }
+
+h2.border, h3.border, h4.border {
+	border-bottom: 3px solid #333 }
 
 .whitebold h2, .whitebold h3, .whitebold h4,
 h2.loose, h3.loose, h4.loose {
@@ -103,12 +105,26 @@ h2.loose.border, h3.loose.border, h4.loose.border {
 	box-shadow: -1px 4px 1px rgba(0, 0, 0, .8) }
 
 .loose { margin: -7px 0 3px 0 }
+h2.large {
+	margin-top: 35px;
+	font-size: 7vw } 
+
+h3.large {
+	text-transform: none;
+	margin-top: 21px;
+	font-size: 2vw }
+
+h2.large+h3.large { margin-top: 0 }
 
 h2 {
 	font-size: 28px }
-h3 { 
+h3 {
+	margin-top: 0;
+	margin-bottom: 7px;
 	font-size: 22px }
+h3.border { padding-bottom: 2px; margin-bottom: 5px }
 h4 { 
+	margin-bottom: 0;
 	font-size: 20px }
 
 
@@ -118,9 +134,35 @@ h4 {
 	border: 5px solid var(--forest-green);
 	border-radius: 3px;
 	box-shadow: var(--shadow);
-	padding: 7px 14px }
-
+	padding: 7px 14px;
+	color: #333;
+	text-shadow: 0 0 0 transparent ;
+	font-weight: bold }
 .card.large { padding: 14px 35px }
+
+	.card p { font-size:16px }
+	.card p:first-child { margin-top: 0 }
+	.card p:last-child { margin-bottom: 0 }
+
+	.card h2:first-child,
+	.card img:first-child+h2,
+	.card h3:first-child,
+	.card img:first-child+h3,
+	.card h4:first-child,
+	.card img:first-child+h4 { margin-top: 0 }
+
+.no-pad { padding: 0 }
+.pad { padding: 7px 14px }
+
+.about {
+	font-weight: bold;
+	font-style: italic;
+	color: #333;
+	text-align: right }
+	.about p { font-size: 17px }
+	.about p::first-line {
+		font-style: normal;
+		text-transform:uppercase }
 
 header.main {
 	 }
@@ -162,7 +204,9 @@ header.main {
 				filter: drop-shadow(6px 8px 8px rgb(0 0 0 / 0.3));
 				width: 100% }
 		
-		.header-content navigation.main { 
+		.header-content navigation.main {
+			margin-bottom: 7px;
+			display: block;
 			width: 100% }
 			
 		navigation.main ul { 
@@ -221,6 +265,12 @@ footer.main {
 			display: block;
 			color: rgba(255, 255, 255, 0.0) }
 
+footer.main h2, footer.main h3, footer.main h4 {
+	margin-bottom:0;
+	font-style: normal;
+	margin-top: 0 }
+
+
 footer.main .container {
 	display: flex;
 	flex-wrap: wrap;
@@ -258,7 +308,6 @@ footer.main .container {
 	
 	.header-content navigation.main {
 		margin-left: auto;
-		margin-bottom: 7px;
     margin-top: -3px;
 		width: 77% }
 	
@@ -284,6 +333,7 @@ footer.main .container {
 	footer.main {  }
 		footer.main h4 {
 			padding-bottom: 3px; 
+			margin-bottom: 0;
 			margin-top: 0 }
 		footer.main .nickf, footer.main .sponsors, footer.main .info {
 			text-align: left;
@@ -312,27 +362,46 @@ footer.main .container {
 		font-size: 20px }
 
 a.action.button {
+	text-shadow: 0;
 	text-transform: uppercase; 
 	color: white;
 	-webkit-text-stroke: 2px black;
 	border: 2px solid black;
 	outline: 1px solid var(--softwhite);
 	border-radius: 3px;
-	display: block;
+	display: inline-block;
 	padding: 7px 21px;
 	font-size: 22px;
 	font-style: italic;
+	font-weight: bold;
 	box-shadow: var(--shadow);
 	background: var(--barely-gold) }
-	a.action.button:after {
+	a.action.button.right:after {
 		position: relative;
 		left: 0;
 		transition: left .2s ease;
-		content: ' ➡ ' }
-	a.action.button:hover:after { 
+		content: ' ➡' }
+	a.action.button.right:hover:after { 
 		left: 3px }
 
 a.action.right { text-align: right }
+a.action.button.left { position: relative }
+a.action.button.left:before {
+	position: relative;
+	right: 0;
+	bottom: 2px;
+	font-size: 140%;
+	line-height: 0;
+	transition: right .2s ease;
+	content: '⬅︎ ' }
+a.action.button.left:hover:before { 
+		right: 3px }
+
+a.action.button.white {
+	background: var(--softwhite);
+	color: var(--barely-green);
+	-webkit-text-stroke: 1px solid #333;
+}
 
 
 .intro {
@@ -361,18 +430,60 @@ a.action.right { text-align: right }
   border: 1px solid var(--softwhite) }
 
 @media (min-width: 780px) {
-  .intro {
+  .intro, .invite {
     display: flex;
     gap: 1rem;
     align-items: flex-start }
-  .intro-copy, .flyer {
+  .intro-copy, .intro .flyer
+  .invite .info, .invite .flyer {
     flex: 0 0 calc((100% - 1rem) / 2);
     min-width: 0;
+    max-width: 50%;
     box-sizing: border-box }
   .intro-copy {
     display: flex;
     flex-direction: column;
     gap: 1rem }
-  .flyer {
+  .intro .flyer {
     order: -1 }
 }
+
+
+/*===============
+  PAGES
+================*/
+
+
+.meetups {}
+
+.invite {}
+	.invite .info {
+		margin-bottom: 14px }
+	.invite .info .card {
+		position: relative }
+		.invite .info .card p {
+			font-style: italic;
+			margin: 0 }
+		.invite .info .location-logo { 
+			float: right;
+			width: 75px }
+			.invite .info .location-logo img {
+				width: 100%;
+			  /*aspect-ratio: 16 / 9;
+			  object-fit: cover;
+			  object-position: center*/ }
+		.invite .info .card h3 { width: 80% }
+		.invite .info .map {
+			border-top: 2px solid #333;
+			overflow:hidden;
+			position: relative }
+			.invite .info .map img {
+				display: block;
+				margin: 0;
+				width: 100% }
+			.invite .info .map iframe {
+				width: 100%;
+				height:210px;
+				border: 0;
+				border-top: 2px solid #333;
+			}

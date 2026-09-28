@@ -13,9 +13,9 @@ class DatabaseLoader(Loader):
 
   def get_contents(self, origin):
     TemplateModel = apps.get_model("cms", "Template")
-    name = origin.template_name.removeprefix(self.prefix)
+    path = origin.template_name.removeprefix(self.prefix)
     try:
-      stored_template = TemplateModel.objects.get(name=name)
+      stored_template = TemplateModel.objects.get(path=path)
     except TemplateModel.DoesNotExist:
       raise TemplateDoesNotExist(origin.template_name)
     

@@ -1,18 +1,17 @@
 <!doctype html>
 <html>
 	<head>
-		<title>{{ pagetitle_verbose }}</title>
+		<title>{{ pagetitle_verbose|default:"Barely Running Club" }}</title>
 
 		<meta name="description" content="Join Barely Running Club for fun, social runs, walking groups, and community meetups. All paces welcome—come move, connect, and enjoy the run together.">
+
+		<meta charset="UTF-8">
 
 		<meta name="viewport" content="width=device-width">
 		<link href="/static/css/styles.css" rel="stylesheet" type="text/css">
 
-		<link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon.png' %}">
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
 
-
-		<meta name="description" content="A concise summary specific to this page.">
-		<!-- tells search engines which URL you prefer as the main version when the same or very similar page is reachable at multiple URLs. For example, a page with tracking parameters can declare its clean URL as canonical -->
 		<link rel="canonical" href="{{ canon }}">
 		
 		<meta property="og:url" content="{{ canon }}">

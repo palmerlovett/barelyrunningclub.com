@@ -12,6 +12,8 @@ class Template(models.Model):
   parent_template = models.ForeignKey('self', on_delete=models.SET_NULL,
     null=True, blank=True)
 
+  path = models.CharField(max_length=255, editable=False,
+    null=True, blank=True)
   display_name = models.CharField(max_length=100, editable=False,
     null=True, blank=True)
 
@@ -25,6 +27,7 @@ class Template(models.Model):
       wrapped_content += "\n{% endblock %}"
 
     names = [self.name]
+    paths = [slugify(self.name)]
     ancestor = self.parent_template
     visited = set()
 
@@ -34,17 +37,21 @@ class Template(models.Model):
 
       visited.add(ancestor.pk)
       names.insert(0, ancestor.name)
+      paths.insert(0, slugify(ancestor.name))
       ancestor = ancestor.parent_template
 
     self.source = wrapped_content
+    self.path = "/".join(paths)
     self.display_name = " / ".join(names)
+
+
   
     self.source = wrapped_content
 
     super().save(*args, **kwargs)
 
   def __str__(self):
-    return self.name
+    return self.display_name
 
   class Meta:
     ordering = [

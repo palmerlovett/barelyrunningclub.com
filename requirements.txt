@@ -2,5 +2,7 @@ asgiref==3.12.1
 dj-database-url==3.1.2
 Django==6.1.1
 django-ace==1.44.0
+django-imagefield==0.22.0
+pillow==12.3.0
 psycopg2-binary==2.9.13
 sqlparse==0.6.0
