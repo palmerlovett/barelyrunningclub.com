@@ -32,6 +32,9 @@ body {
 
 .right { text-align: right }
 
+.barely {
+	-webkit-text-stroke: 1px var(--forest-green) !important;
+	color: var(--barely-green) !important }
 
 p {
 	font-size: 16px;
@@ -237,9 +240,11 @@ navigation.main li.rsvp a {
 
 .content-club navigation.main ul li.content a {
 }
-.content-club navigation.main ul li.content {
-	border-bottom: 1px solid var(--live-red) }
-
+.content-club navigation.main ul li.content,
+.meetups navigation.main ul li.meetups,
+.events navigation.main ul li.events,
+.rsvp navigation.main ul li.rsvp {
+	border-bottom: 1px solid var(--live-red) } 
 
 main {
 	min-height: 70dvh;
@@ -373,7 +378,7 @@ a.action.button {
 	padding: 7px 21px;
 	font-size: 22px;
 	font-style: italic;
-	font-weight: bold;
+	font-weight: 900;
 	box-shadow: var(--shadow);
 	background: var(--barely-gold) }
 	a.action.button.right:after {
@@ -466,6 +471,8 @@ a.action.button.white {
 			margin: 0 }
 		.invite .info .location-logo { 
 			float: right;
+			margin-right: -14px;
+			margin-top: -7px;
 			width: 75px }
 			.invite .info .location-logo img {
 				width: 100%;

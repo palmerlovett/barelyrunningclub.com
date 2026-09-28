@@ -1,8 +1,8 @@
 # admin/upcoming.py
 from django.contrib import admin
 
-from .models import City, Meetup, Location
-from media.models import Flyer, LocationLogo, LocationRoute
+from .models import City, Meetup, Location, Event
+from media.models import Flyer, EventFlyer, LocationLogo, LocationRoute
 
 class FlyerInline(admin.StackedInline):
 	model = Flyer
@@ -37,10 +37,17 @@ class LocationRouteInline(admin.StackedInline):
 	validate_max = True
 	can_delete = False
 
+class EventFlyerInline(FlyerInline):
+    model = EventFlyer
+    fk_name = "event"
+
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
 	autocomplete_fields = ("city",)
 	inlines = [LocationLogoInline, LocationRouteInline]
+
+
+
 
 @admin.register(Meetup)
 class MeetupTypeAdmin(admin.ModelAdmin):
@@ -56,6 +63,25 @@ class MeetupTypeAdmin(admin.ModelAdmin):
 		ordering="meetup__date",)
 
 	def meetup_date(self, obj):
+		return obj.date
+
+
+
+
+@admin.register(Event)
+class EventTypeAdmin(admin.ModelAdmin):
+	list_display = ("event_title", "event_date")
+	search_fields = ("event__title", "event__content")
+	inlines = [EventFlyerInline]
+
+	def event_title(self, obj):
+		return obj.title
+	
+	@admin.display(
+		description="Date",
+		ordering="event__date",)
+
+	def event_date(self, obj):
 		return obj.date
 
 @admin.register(City)

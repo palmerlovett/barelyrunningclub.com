@@ -143,19 +143,38 @@ class PhotoClass(File):
   class Meta:
     abstract = True
 
-class Flyer(PhotoClass):
+
+
+class FlyerClass(PhotoClass):
+  parent_field = None
+  flyer_folder = "flyers"
+ 
+  class Meta:
+    abstract = True
+ 
+  def save(self, *args, **kwargs):
+    super().save(*args, **kwargs)
+    parent = getattr(self, self.parent_field)
+    name = f"{parent.date}_{slugify(parent.title)}"
+    self.rename_file(folder=self.flyer_folder, new_name=name)
+
+class Flyer(FlyerClass):
+  parent_field = "meetup"
   meetup = models.OneToOneField(
     "upcoming.Meetup",
     on_delete=models.CASCADE,
     related_name="flyer",
     null=True, blank=True)
 
-  def save(self, *args, **kwargs):
-    super().save(*args, **kwargs)
-    print(f'date: {self.meetup.date}')
-    new_name = f'{self.meetup.date}_{slugify(self.meetup.title)}'
-    self.rename_file(folder="flyers", new_name=new_name)
-
+class EventFlyer(FlyerClass):
+  parent_field = "event"
+  flyer_folder = "event-flyers"
+  # keep your existing event field
+  event = models.OneToOneField(
+    "upcoming.Event",
+    on_delete=models.CASCADE,
+    related_name="flyer",
+    null=True, blank=True)
 
 class LocationLogo(PhotoClass):
   location = models.OneToOneField(

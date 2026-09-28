@@ -32,16 +32,22 @@ class Location(models.Model):
 
   def __str__(self):
     return self.name
-  
 
-class Meetup(models.Model):
-  meetup_id = models.AutoField(primary_key=True)
+class EventClass(models.Model):
   title = models.CharField(max_length=200)
   location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)
   date = models.DateField()
-
-  content = models.TextField(blank=True)
-
+  description = models.TextField(blank=True)
 
   def __str__(self):
-    return f'{self.date}, {self.title}'
+    return f'{self.title}, {self.date}'
+
+  class Meta:
+    abstract = True
+    ordering = ['-date']
+
+class Event(EventClass):
+  event_id = models.AutoField(primary_key=True)
+
+class Meetup(EventClass):
+  meetup_id = models.AutoField(primary_key=True)

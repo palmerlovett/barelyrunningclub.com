@@ -1,8 +1,10 @@
+# upcoming/urls.py
 from django.urls import path
 from . import views
 
-app_name = 'upcoming'
+app_name = "upcoming"
 
 urlpatterns = [
-  path('', views.meetups, name="meetup"),
+  path("meetups/", views.meetups, name="meetup"),
+  path("events/", views.events, name="events"),
 ]
