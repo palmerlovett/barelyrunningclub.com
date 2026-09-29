@@ -1,32 +1,16 @@
 {% extends 'cms/barely' %}
 {% block content %}
-<h2 class="loose right">Join us for a special Saturday event</h2>
+<h2 class="loose right">Join us for a special event</h2>
 <div class="invite">
 	<div class="info">
-		<div class="whitebold">
-			<h3 class="border">Every <span class="barely">Wednesday</span> at <span class="barely">6:15 pm</span></h3>
-			<p>Explore Baton Rouge with the group as we choose new locations each month.</p>
-		</div>
-		<div class="card no-pad">
-			<div class="pad">
-				<img class="location-logo" src="{{ meetup.location.location_logo.thumb_url }}">
-				<h3>This Week</h3>
-				<p>{{ meetup.description }}</p>
-			</div>
-			<div class="map">
-			{% if meetup.location.location_route.file %}
-				<img
-					alt="{{ meetup.date }} {{ meetup.title }} @ {{ SETTINGS.CO_NAME }}"
-					src="{{ meetup.location.location_route.desktop_url }}">
-			{% else %}
-				<iframe
-					src="https://maps.google.com/maps?q={{ gmap_query }}&t=m&z=14&ie=UTF8&iwloc=B&output=embed"></iframe>
-			{% endif %}
-			</div>
-		</div>
+		{% part 'event info' %}
+
+		<a class="action button right float-right" href="{% url 'rsvp:signin' date=event.date_str %}">RSVP 4 Swag</a>
+		}
+		
 	</div>
 	<div class="flyer">
-		<img src="{{ meetup.flyer.file.url }}">
+		<img src="{{ event.flyer.desktop_url }}">
 	</div>
 </div>
 

@@ -19,6 +19,8 @@ class Location(models.Model):
   name = models.CharField(max_length=100)
   city = models.ForeignKey(City, on_delete=models.SET_NULL,
     null=True)
+  gmap_url = models.CharField(max_length=255,
+    blank=True, null=True)
 
   @property
   def gmap_query(self):
@@ -40,9 +42,19 @@ class Event(models.Model):
   location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)
   date = models.DateField()
   description = models.TextField(blank=True)
+  time = models.TimeField(default=dt_time(18, 0),
+    blank=True, null=True)
 
   def __str__(self):
     return f'{self.title}, {self.date}'
+
+  @property
+  def time_str(self):
+    return self.time.strftime("%-I:%M %p") if self.time else ""
+
+  @property
+  def date_str(self):
+    return self.date.isoformat()
 
   class Meta:
     ordering = ['-date']
@@ -51,8 +63,6 @@ class SpecialEvent(Event):
   event_ptr = models.OneToOneField(
     Event, on_delete=models.CASCADE,
     parent_link=True, primary_key=True )
-  time = models.TimeField(default=dt_time(18, 0),
-    blank=True, null=True)
 
 class Meetup(Event):
   event_ptr = models.OneToOneField(

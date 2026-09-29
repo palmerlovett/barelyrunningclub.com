@@ -55,7 +55,7 @@ def page(request):
     "pagetitle_verbose": pagetitle_verbose,
     "pageclass": pageclass }
   
-  html = pre_render(page.source, data, request)
+  html = pre_render(page.source, data)
   # page.content until we solve the rendering issue 
   
   return HttpResponse(html)

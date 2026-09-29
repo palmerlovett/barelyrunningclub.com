@@ -1,6 +1,7 @@
-
+# cms/templatetags/cms_tags.py
 from django import template
 from cms.utils import cms_url as cms_url_util
+from django.utils.safestring import mark_safe
 
 register = template.Library()
 
@@ -9,12 +10,30 @@ def cms_url(page_name):
   ## USAGE: {% cms_url '{{page_name}}' %}
   return cms_url_util(page_name)
 
-@register.simple_tag
-def part(part_name):
+@register.simple_tag(takes_context=True)
+def part(context, part_name):
   from cms.models import Part
   from cms.utils import pre_render
   part = Part.objects.get(name__iexact=part_name)
   return pre_render(part.content)
+
+@register.simple_tag(takes_context=True)
+def part(context, part_name):
+  from cms.models import Part
+  from cms.utils import pre_render
+  
+  try:
+    part_obj = Part.objects.get(name__iexact=part_name)
+  except Part.DoesNotExist:
+    return "[part does not exist]"
+
+  # Pass the active template context directly into your pre_render function
+  rendered_content = pre_render(part_obj.content, context)
+  
+  # Mark as safe so Django doesn't HTML-escape the rendered output
+  return mark_safe(rendered_content)
+
+
 
 @register.simple_tag
 def media(type_loc, file="", output='html'):

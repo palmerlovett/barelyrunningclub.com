@@ -19,6 +19,8 @@ from django.urls import path, re_path, include
 
 urlpatterns = [
   path('admin/', admin.site.urls),
+  path('club/', include('club.urls')),
+  path('rsvp/', include('rsvp.urls')),
   path("", include("upcoming.urls")),
   re_path(r'^(?:[a-z0-9](?:(?![&*!]{2})[a-z0-9&*!-])*/)*', include("cms.urls")),
 ]

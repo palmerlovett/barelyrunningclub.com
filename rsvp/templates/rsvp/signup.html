@@ -1,0 +1,24 @@
+{% extends 'cms/barely' %}
+{% block content %}
+{% comment %} rsvp/templates/rsvp/signup.html {% endcomment %}
+
+
+<h2 class="loose right">{{ event.title }}</h2>
+<div class="invite signup">
+  <div class="info">
+  {% if member %}
+    {% part 'event info' %}
+    {% part 'rsvp button' %}
+
+  {% else %}
+    <h3 class="loose">RSVP <span class="barely">Saturday</span> at <span class="barely">{{ event.time_str }}</span></h3>
+    {% part 'rsvp button' %}
+  {% endif %}
+
+<form method="post">
+  </div>
+  <div class="flyer">
+    <img src="{{ event.flyer.desktop_url }}">
+  </div>
+</div>
+{% endblock %}

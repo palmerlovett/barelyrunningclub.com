@@ -1,0 +1,15 @@
+{% extends 'cms/barely' %}
+{% block content %}
+<div class="whitebold">
+  {% if member %}
+    <h2>Thanks for your RSVP, {{ member.full_name }}!</h2>
+    {% if member.verified %}
+      <p>You're all set for {{ event.title }} on {{ event.date }}.</p>
+    {% else %}
+      <p>We just need you to verify your email before your spot is fully confirmed — check your inbox for a verification link.</p>
+    {% endif %}
+  {% else %}
+    <h1>Thanks for your RSVP!</h1>
+    <p>Check your email to verify your spot for {{ event.title }} on {{ event.date }}.</p>
+  {% endif %}
+{% endblock %}

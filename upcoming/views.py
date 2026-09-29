@@ -22,7 +22,7 @@ def meetups(request, date=None):
     "pageclass": "meetups",
     "pagetitle_verbose": "Weekly Meetups at " + settings.CO_NAME,
     "gmap_query": meetup.location.gmap_query,
-    "meetup": meetup }
+    "event": meetup }
 
   return render(request, 'upcoming/meetups.html', data)
 
@@ -36,7 +36,7 @@ def events(request):
     "pageclass": "events",
     "pagetitle_verbose": "Upcoming Events at " + settings.CO_NAME,
     "gmap_query": event.location.gmap_query,
-    "meetup": event }
+    "event": event }
 
   return render(request, 'upcoming/events.html', data)
 

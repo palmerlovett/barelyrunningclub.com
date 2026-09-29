@@ -28,7 +28,7 @@ CO_NAME = "Barely Running Club"
 SECRET_KEY = os.environ['DJANGO_SECRET']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
   "barely.lastman.enterprises"]
@@ -50,7 +50,9 @@ INSTALLED_APPS = [
   'django_project',
   'cms',
   'upcoming',
-  'media', 
+  'media',
+  'club',
+  'rsvp'
 ]
 
 MIDDLEWARE = [

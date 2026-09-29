@@ -1,5 +1,7 @@
+# cms/utils.py
+
 from django.apps import apps
-from django.template import Origin, engines
+from django.template import Origin, engines, Template, Context
 from django.template.loaders.base import Loader
 from django.template import TemplateDoesNotExist
 
@@ -32,11 +34,13 @@ class DatabaseLoader(Loader):
     except Model.DoesNotExist:
       raise TemplateDoesNotExist(template_name)
 
-def pre_render(template_string, context_dict=None, request=None):
-  template = engines["django"].from_string(template_string)
-  rendered = template.render(context_dict or {}, request=request)
-  return rendered
+from django.template import Template, Context
 
+def pre_render(content_string, context=None):
+  template = Template(content_string)
+  if isinstance(context, Context):
+    return template.render(context)
+  return template.render(Context(context or {}))
 
 def cms_url(page_name):
   from .models import Page
