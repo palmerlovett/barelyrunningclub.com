@@ -6,6 +6,7 @@ from .models import Alias, Page
 from django.utils.text import slugify
 from .utils import pre_render
 from django.shortcuts import redirect
+from upcoming.models import Event
 
 def page(request):
 
@@ -33,6 +34,8 @@ def page(request):
   pagetitle_verbose = pagetitle
   pageclass = 'cms '+slugify(page.name)
 
+  latest = Event.objects.order_by("-date").first()
+
   canon = settings.SITE_URL+page.path
   print(f'page name {page.name}')
   if page.name.casefold() == 'index':
@@ -45,6 +48,7 @@ def page(request):
   data = {
     "canon": canon,
     "page": page,
+    "latest": latest,
     "content": page.content,
     "page_desc": page.desc,
     "pagetitle": pagetitle,

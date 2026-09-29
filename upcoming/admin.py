@@ -1,12 +1,13 @@
-# admin/upcoming.py
-from django.contrib import admin
+# upcoming/admin.py
 
-from .models import City, Meetup, Location, Event
-from media.models import Flyer, EventFlyer, LocationLogo, LocationRoute
+from django.contrib import admin
+from django import forms
+from .models import City, Meetup, Location, SpecialEvent
+from media.models import Flyer, LocationLogo, LocationRoute
 
 class FlyerInline(admin.StackedInline):
 	model = Flyer
-	fk_name = "meetup"
+	fk_name = "event"
 	fields = ("file",)
 	extra = 0
 	min_num = 1
@@ -37,9 +38,6 @@ class LocationRouteInline(admin.StackedInline):
 	validate_max = True
 	can_delete = False
 
-class EventFlyerInline(FlyerInline):
-    model = EventFlyer
-    fk_name = "event"
 
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
@@ -47,39 +45,46 @@ class LocationAdmin(admin.ModelAdmin):
 	inlines = [LocationLogoInline, LocationRouteInline]
 
 
-
+class MeetupAdminForm(forms.ModelForm):
+  class Meta:
+    model = Meetup
+    fields = '__all__'
+    widgets = {
+      'time': forms.TimeInput(attrs={'type': 'time', 'step': '60'}),
+    }
 
 @admin.register(Meetup)
 class MeetupTypeAdmin(admin.ModelAdmin):
 	list_display = ("meetup_title", "meetup_date")
-	search_fields = ("meetup__title", "meetup__content")
+	search_fields = ("title", "description")
+	admin_caching_enabled = False
 	inlines = [FlyerInline]
+	form = MeetupAdminForm
 
 	def meetup_title(self, obj):
 		return obj.title
 	
 	@admin.display(
 		description="Date",
-		ordering="meetup__date",)
+		ordering="date",)
 
 	def meetup_date(self, obj):
 		return obj.date
 
 
-
-
-@admin.register(Event)
+@admin.register(SpecialEvent)
 class EventTypeAdmin(admin.ModelAdmin):
 	list_display = ("event_title", "event_date")
-	search_fields = ("event__title", "event__content")
-	inlines = [EventFlyerInline]
+	search_fields = ("title", "description")
+	admin_caching_enabled = False
+	inlines = [FlyerInline]
 
 	def event_title(self, obj):
 		return obj.title
 	
 	@admin.display(
 		description="Date",
-		ordering="event__date",)
+		ordering="date",)
 
 	def event_date(self, obj):
 		return obj.date

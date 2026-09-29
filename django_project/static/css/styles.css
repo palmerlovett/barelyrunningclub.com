@@ -140,6 +140,7 @@ h4 {
 	padding: 7px 14px;
 	color: #333;
 	text-shadow: 0 0 0 transparent ;
+	margin-bottom: 21px;
 	font-weight: bold }
 .card.large { padding: 14px 35px }
 
@@ -371,6 +372,7 @@ a.action.button {
 	text-transform: uppercase; 
 	color: white;
 	-webkit-text-stroke: 2px black;
+
 	border: 2px solid black;
 	outline: 1px solid var(--softwhite);
 	border-radius: 3px;
@@ -381,6 +383,7 @@ a.action.button {
 	font-weight: 900;
 	box-shadow: var(--shadow);
 	background: var(--barely-gold) }
+	
 	a.action.button.right:after {
 		position: relative;
 		left: 0;
@@ -389,7 +392,14 @@ a.action.button {
 	a.action.button.right:hover:after { 
 		left: 3px }
 
-a.action.right { text-align: right }
+a.action.right.skew {
+	transform: skew(-20deg);
+	text-align: right }
+a.action.button.right.skew span {
+	display:inline-block;
+	font-style: italic;
+	transform:skew(20deg) }
+
 a.action.button.left { position: relative }
 a.action.button.left:before {
 	position: relative;
@@ -401,6 +411,13 @@ a.action.button.left:before {
 	content: '⬅︎ ' }
 a.action.button.left:hover:before { 
 		right: 3px }
+
+a.action.left.skew {/*
+	transform: skew(20deg);*/
+	text-align: left }
+a.action.button.left span {
+	font-style: normal }
+
 
 a.action.button.white {
 	background: var(--softwhite);
@@ -473,9 +490,11 @@ a.action.button.white {
 			float: right;
 			margin-right: -14px;
 			margin-top: -7px;
+			border: 1px solid var(--softwhite);
 			width: 75px }
 			.invite .info .location-logo img {
 				width: 100%;
+				display: block;
 			  /*aspect-ratio: 16 / 9;
 			  object-fit: cover;
 			  object-position: center*/ }
@@ -490,7 +509,7 @@ a.action.button.white {
 				width: 100% }
 			.invite .info .map iframe {
 				width: 100%;
-				height:210px;
+				height:140px;
 				border: 0;
 				border-top: 2px solid #333;
 			}
