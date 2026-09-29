@@ -32,7 +32,8 @@ class PhotoClass(File):
       "thumb": ["default", ("thumbnail", (300, 200))],
       "desktop": ["default", ("thumbnail", (660, 999))],
     },
-    auto_add_fields=True,)
+    auto_add_fields=True,
+  )
 
   def published_name(self, format_name, file_name=None):
     stem, _ = os.path.splitext(file_name or self.file.name)
@@ -42,14 +43,31 @@ class PhotoClass(File):
     storage = self.file.storage
 
     for format_name in self.file.field.formats:
-      generated = self.file.process(format_name)
-      if not generated:
-        raise RuntimeError(f"Could not generate {format_name}")
+      # 1. Force django-imagefield to invalidate internal cache and re-process
+      # Delete any existing auto-generated imagefield variants in tmp/
+      try:
+        subfile = getattr(self.file, format_name)
+        if subfile and storage.exists(subfile.name):
+          storage.delete(subfile.name)
+      except Exception:
+        pass
 
-      # The generated image may be PNG; make real JPEG bytes for .jpg.
+      # 2. Force process execution for the current self.file
+      generated = (
+        self.file.process(format_name, force=True)
+        if hasattr(self.file, "process")
+        else self.file.process(format_name)
+      )
+
+      if not generated or not storage.exists(generated):
+        # Fallback: manually trigger rendering if cached path returned non-existent file
+        generated = self.file.field.formats[format_name].process(self.file)
+
+      # 3. Read generated image bytes and export cleanly as PNG
       with storage.open(generated, "rb") as source:
         with Image.open(source) as image:
           output = BytesIO()
+          # Convert to RGBA to safely support PNG output regardless of input format (JPG or PNG)
           image.convert("RGBA").save(output, format="PNG", optimize=True)
 
       target = self.published_name(format_name)
@@ -57,9 +75,15 @@ class PhotoClass(File):
         storage.delete(target)
 
       saved = storage.save(target, ContentFile(output.getvalue()))
+
+      # Clean up temporary process file
+      if storage.exists(generated):
+        storage.delete(generated)
+
       if saved != target:
         storage.delete(saved)
         raise RuntimeError(f"Storage did not save at {target}")
+
 
   @property
   def thumb_url(self):
