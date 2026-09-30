@@ -1,30 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from django.core.signing import BadSignature
+
 from upcoming.models import Event
-from club.models import Member
+from club.models import Member, Notification
 from club.forms import MemberForm
 from .models import Reservation
 
-MEMBER_COOKIE = "member_id"
-# 400 days is the practical ceiling — Chrome (and other Chromium browsers)
-# silently clamp any longer Max-Age down to this, so anything bigger is wasted.
-MEMBER_COOKIE_MAX_AGE = 60 * 60 * 24 * 400
-
-
-def get_member_from_cookie(request):
-  try:
-    member_id = request.get_signed_cookie(MEMBER_COOKIE)
-  except (KeyError, BadSignature):
-    return None
-  return Member.objects.filter(pk=member_id).first()
-
-
-def set_member_cookie(response, member):
-  # Re-issuing on every visit rolls the 400-day window forward, so a member
-  # who visits at least once a year effectively never gets logged out.
-  response.set_signed_cookie(MEMBER_COOKIE, member.member_id, max_age=MEMBER_COOKIE_MAX_AGE)
-  return response
 
 
 def rsvp(request, date=None):
@@ -33,8 +14,8 @@ def rsvp(request, date=None):
   else:
     event = get_object_or_404(Event, date=date)
 
-  member = get_member_from_cookie(request)
-
+  member = Member.get_member_from_cookie(request)
+  
   if request.method == "POST":
     redirect_member = None
 
@@ -48,6 +29,9 @@ def rsvp(request, date=None):
       # One-click RSVP for any recognized returning member. Identity comes
       # only from the signed cookie — never trust a member_id in the POST body.
       Reservation.objects.get_or_create(member=member, event=event)
+      Notification.objects.create(
+        recipient=member,
+        verb="RSVP recieved. let go run.",)
       if not member.verified:
         member.send_verification_email(request=request)
       redirect_member = member
@@ -71,7 +55,6 @@ def rsvp(request, date=None):
 
         redirect_member = new_member
 
-    # Redirect back to the same page
     if redirect_member:
       if date:
         redirect_url = reverse("rsvp:signin", kwargs={"date": date})
@@ -79,7 +62,7 @@ def rsvp(request, date=None):
         redirect_url = reverse("rsvp:recent")
 
       response = redirect(redirect_url)
-      return set_member_cookie(response, redirect_member)
+      return redirect_member.set_member_cookie(response)
 
   else:
     form = MemberForm()
@@ -93,4 +76,4 @@ def rsvp(request, date=None):
     "member": member,
     "pageclass": 'rsvp'
   })
-  return set_member_cookie(response, member) if member else response
+  return member.set_member_cookie(response) if member else response

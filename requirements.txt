@@ -3,6 +3,12 @@ dj-database-url==3.1.2
 Django==6.1.1
 django-ace==1.44.0
 django-imagefield==0.22.0
+django-model-utils==5.0.0
+django-notifications-hq==1.8.3
+gunicorn==26.2.0
+jsonfield==3.2.0
 pillow==12.3.0
 psycopg2-binary==2.9.13
+pytz==2026.4
 sqlparse==0.6.0
+swapper==1.5.0

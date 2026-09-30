@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+from django.db.models.options import Options
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -33,7 +35,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
   "barely.lastman.enterprises"]
 CSRF_TRUSTED_ORIGINS = [
-  "https://*.lastman.enterprises/"]
+  "https://barely.lastman.enterprises"]
 
 # Application definition
 
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
   'django.contrib.staticfiles',
 
   'django_ace',
+  'actstream',
 
   'django_project',
   'cms',
@@ -54,6 +57,8 @@ INSTALLED_APPS = [
   'club',
   'rsvp'
 ]
+
+
 
 MIDDLEWARE = [
   'django.middleware.security.SecurityMiddleware',
@@ -77,6 +82,7 @@ TEMPLATES = [
         'django.contrib.auth.context_processors.auth',
         'django.contrib.messages.context_processors.messages',
         'django_project.process_context.public_settings',
+        'club.context_processors.latest_notification',
       ],
       'builtins': [
         'django.templatetags.static',
@@ -149,11 +155,13 @@ MEDIA_ROOT = '/var/www/barelyrunningclub.com/media/'
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
-MAILERS = {
-  'default': {
-    'BACKEND': 'django.core.mail.backends.console.EmailBackend',
-  },
-}
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.mail.me.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ["APPLE_EMAIL"]
+EMAIL_HOST_PASSWORD = os.environ["APPLE_APP_PASSWORD"]
+DEFAULT_FROM_EMAIL = os.environ["APPLE_EMAIL"]
 
 # Django ACE Editor configuration
 ACE_EDITOR_OPTIONS = {
@@ -163,4 +171,9 @@ ACE_EDITOR_OPTIONS = {
   'theme': 'monokai',
   'width': '100%',
   'height': '500px'
+}
+
+# Optional: Enable JSONField support for custom extra data on activity actions
+ACTSTREAM_SETTINGS = {
+  'USE_JSONFIELD': True,
 }

@@ -10,6 +10,7 @@
 
 body, html {
 	margin: 0;
+	overflow: hidden;
 	padding: 0 }
 
 html {
@@ -28,6 +29,7 @@ body {
 	max-width: 910px;
 	margin: auto;
 	box-sizing: border-box;
+	position: relative;
 	padding: 14px 21px }
 
 .right { text-align: right }
@@ -39,6 +41,36 @@ body {
 .clear {
 	clear: both;
 	display: block }
+
+
+.notification {
+	padding: 2px 7px;
+	border: 1px solid var(--forest-green);
+	border-radius: 3px;
+	color: #333;
+	font-style: italic;
+	font-weight: bold;
+	font-size: 14px;
+	text-align: right;
+	background: var(--softwhite);
+ 	z-index: 100;
+ 	box-shadow: var(--shadow);
+	position: absolute;
+	top: 39px;
+	left: -100%;
+	white-space: nowrap;
+	animation: notification-slide 9s ease forwards }
+	.noto.container { height:0;padding-top: 0; padding-bottom: 0 }
+ 
+@keyframes notification-slide {
+	0%   { left: -100% }
+	5%   { left: 28px }
+	95%  { left: 28px }
+	100% { left: 300% }
+}
+ 
+
+
 
 p {
 	font-size: 16px;
@@ -473,6 +505,8 @@ footer.main .container {
   .intro-copy, .intro .flyer,
   .invite .info, .invite .flyer {
     flex: 0 0 calc((100% - 1rem) / 2);
+
+  	clear: both;
     min-width: 0;
     max-width: 50%;
     box-sizing: border-box }
@@ -546,6 +580,8 @@ footer.main .container {
 /*===============
   FORMS
 ================*/
+
+form { min-height: 30px }
 
 form .card { margin: 0 }
 

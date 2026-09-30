@@ -1,0 +1,8 @@
+{% comment %} club/templates/club/emails/verify_email.txt {% endcomment %}
+Hi {{ member.first_name }},
+
+Thanks for RSVPing with {{ CO_NAME }}. Verify your email to lock in your spot:
+
+{{ verify_url }}
+
+If you didn't request this, you can safely ignore this email.

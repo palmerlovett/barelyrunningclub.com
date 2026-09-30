@@ -1,0 +1,48 @@
+{% comment %} club/templates/club/emails/base_email.html {% endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}{{ CO_NAME }}{% endblock %}</title>
+</head>
+<body style="margin:0; padding:0; background-color:#ffffff; background-image:url('{{ SITE_URL }}/static/img/runners.png'); font-family:Verdana, Geneva, sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="font-family:Verdana, Geneva, sans-serif;">
+    <tr>
+      <td align="center" style="padding:28px 0; font-family:Verdana, Geneva, sans-serif;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px; margin:0 auto; font-family:Verdana, Geneva, sans-serif;">
+
+          <!-- Logo -->
+          <tr>
+            <td style="text-align:center; padding:0 0 21px 0; font-family:Verdana, Geneva, sans-serif;">
+              <img src="{{ SITE_URL }}/static/img/barely_logo.png" alt="{{ CO_NAME }}" width="160" style="display:block; margin:0 auto; width:160px; height:auto;">
+            </td>
+          </tr>
+
+          <!-- Box -->
+          <tr>
+            <td>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+                style="background-color:#FFFEF8; border:4px solid #264d36; border-radius:3px;">
+                <tr>
+                  <td style="padding:14px 21px; font-family:Verdana, Geneva, sans-serif; color:#333333; font-weight:bold;">
+                    {% block main %}{% endblock %}
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="text-align:center; padding:14px; font-family:Verdana, Geneva, sans-serif; font-size:12px; color:#FFFEF8;">
+              &copy; {% now "Y" %} {{ CO_NAME }}
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
